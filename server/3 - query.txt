@@ -1,0 +1,36 @@
+// buat table User dan Company
+
+CREATE TABLE User (
+    Id UUID PRIMARY KEY,
+    Nama VARCHAR(255),
+    Email VARCHAR(255),
+    Telp VARCHAR(15)
+);
+
+CREATE TABLE Company (
+    Id UUID PRIMARY KEY,
+    User_id UUID,
+    Company_code VARCHAR(10),
+    Company_name VARCHAR(255),
+    FOREIGN KEY (User_id) REFERENCES User(Id)
+);
+
+//tambah data dummy
+INSERT INTO User (Id, Nama, Email, Telp) VALUES
+('12qwer', 'Imron', NULL, '081234567890'),
+('321rewq', 'Juli', 'Sammy@mail.com', '0987654321');
+
+INSERT INTO Company (Id, User_id, Company_code, Company_name) VALUES
+('trew098', '12qwer', 'SPI', NULL),
+('poiuyt1234', '321rewq', 'PIC', 'Samudera');
+
+// Query untuk mendapatkan hasil akhir
+SELECT
+    User.Id AS User_id,
+    User.Nama,
+    User.Email,
+    User.Telp,
+    Company.Company_code,
+    Company.Company_name
+FROM User
+LEFT JOIN Company ON User.Id = Company.User_id;
